@@ -267,7 +267,6 @@ var Game = new (function() {
     var oldScore = getScore(),
         newScore = setScore(grid.width * grid.height);
 
-    gameEnded = true;
     grid.unmark();
     grid.hint.hide();
     grid.hint.active = false;
@@ -281,6 +280,7 @@ var Game = new (function() {
       endGameTOH1 = setTimeout(function() {
         $('#board').addClass('hidden');
         endGameTOH2 = setTimeout(function() {
+          gameEnded = true;
           $('#menugrid').removeClass('hidden');
           $('#chooseSize').addClass('show');
           $('#score').show();
