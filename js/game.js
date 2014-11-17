@@ -334,7 +334,7 @@ var Game = new (function() {
       }
     });
     $(document).on('touchend mouseup', click);
-    $(document).on('mousedown', '#grid td', tapTile);
+    $(document).on('touchstart mousedown', '#grid td', tapTile);
     $(document).on('contextmenu', function(e) {
       e.preventDefault();
       e.stopPropagation();
