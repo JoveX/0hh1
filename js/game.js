@@ -29,7 +29,7 @@ var Game = new (function() {
 
   function init() {
     $('#scorenr').html(getScore());
-    $('#tweeturl').hide();
+    $('#tweeturl, #facebook').hide();
 
     if (!window.isWebApp)
       $('#app').hide();
@@ -232,7 +232,7 @@ var Game = new (function() {
     $('#menugrid').addClass('hidden');
     $('#board').removeClass('hidden');
     $('#bar [data-action]').show();
-    $('#tweeturl').hide();
+    $('#tweeturl, #facebook').hide();
     $('#chooseSize').removeClass('show');
     $('#score').removeClass('show').hide();
     $('#bar [data-action="help"]').removeClass('hidden wiggle');
@@ -273,7 +273,7 @@ var Game = new (function() {
     var ojoo = getOjoo() + '!';
     $('#boardsize').html('<span>' + ojoo + '</span>');
     grid.each(function() { this.system = true; });
-    $('#bar [data-action]').not('[data-action="back"]').hide();
+    $('#bar [data-action]').hide();
 
     endGameTOH3 = setTimeout(function(){
       $('#grid .tile').addClass('completed');
@@ -291,11 +291,12 @@ var Game = new (function() {
               animateScore(oldScore, newScore);
               if (tweet && !currentPuzzle.isTutorial) {
                 updateTweetUrl(currentPuzzle.size);
-                $('#tweeturl').show();
+                $('#tweeturl, #facebook').show();
               }
             }
           }
 
+          $('#bar [data-action="back"]').show();
           setTimeout(function() { $('#score').addClass('show');}, 0);
 
         }, 50);
@@ -321,9 +322,9 @@ var Game = new (function() {
   function addEventListeners() {
     document.addEventListener("backbutton", backButtonPressed, false);
 	
-	if (window.WinJS)
+  	if (window.WinJS)
       WinJS.Application.onbackclick = backButtonPressed;
-	  
+  	  
     $(document).on('keydown', function(evt){
       if (evt.keyCode == 27 /* escape */) { backButtonPressed(); return false; }
       if (evt.keyCode == 32 /* space */) { doAction('help'); return false; }
@@ -333,60 +334,78 @@ var Game = new (function() {
       }
     });
     $(document).on('touchend mouseup', click);
-    $(document).on('touchstart mousedown', '#grid td', function(e) {
-      if (Utils.isDoubleTapBug(e)) return false;
-      var $el = $(e.target).closest('td'),
-          x = $el.attr('data-x') * 1,
-          y = $el.attr('data-y') * 1,
-          tile = grid.tile(x, y);
+    $(document).on('mousedown', '#grid td', tapTile);
+    $(document).on('contextmenu', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      return false;
+    })
+  }
 
-      clearTimeout(checkTOH);
+  function tapTile (e) {
+    if (window.Utils && Utils.isDoubleTapBug(e)) return false;
+    var $el = $(e.target).closest('td'),
+        x = $el.attr('data-x') * 1,
+        y = $el.attr('data-y') * 1,
+        tile = grid.tile(x, y),
+        rightClick = (e.which === 3);
 
-      if (tile.system) {
-        var $tile = $el.find('.tile');
-        $tile.addClass('error');
-        setTimeout(function() {
-          $tile.removeClass('error');
-        }, 500);
-        return false;
-      }
-      
-      if (Tutorial.active) {
-        Tutorial.tapTile(tile);
-        return false;
-      }
-      
-      if (grid && grid.hint)
-        grid.hint.clear();
+    clearTimeout(checkTOH);
 
-      // create new undo
-      var undoState = [tile, tile.value, new Date()];
-      if (undoStack.length) {
-        // check if the last state was done a few ms ago, then consider it as one change
-        var lastState = undoStack[undoStack.length - 1],
-            lastTile = lastState[0],
-            lastChange = lastState[2];
-        if (lastTile.id != tile.id || (new Date() - lastChange > 500))
-          undoStack.push(undoState);
-      } 
-      else
+    if (tile.system) {
+      var $tile = $el.find('.tile');
+      $tile.addClass('error');
+      setTimeout(function() {
+        $tile.removeClass('error');
+      }, 500);
+      return false;
+    }
+    
+    if (Tutorial.active) {
+      Tutorial.tapTile(tile);
+      return false;
+    }
+    
+    if (grid && grid.hint)
+      grid.hint.clear();
+
+    // create new undo
+    var undoState = [tile, tile.value, new Date()];
+    if (undoStack.length) {
+      // check if the last state was done a few ms ago, then consider it as one change
+      var lastState = undoStack[undoStack.length - 1],
+          lastTile = lastState[0],
+          lastChange = lastState[2];
+      if (lastTile.id != tile.id || (new Date() - lastChange > 500))
         undoStack.push(undoState);
+    } 
+    else
+      undoStack.push(undoState);
 
+    if (rightClick) {
+      if (tile.isEmpty)
+        tile.value = 2;
+      else if (tile.value == 2)
+        tile.value = 1;
+      else
+        tile.clear();
+    } else {
       if (tile.isEmpty)
         tile.value = 1;
       else if (tile.value == 1)
         tile.value = 2;
       else
         tile.clear();
+    }
 
-      //if (tile.value > 0)
-      checkTOH = setTimeout(function(){checkForLevelComplete();}, 700);
-      return false;
-    });
+    //if (tile.value > 0)
+    checkTOH = setTimeout(function(){checkForLevelComplete();}, 700);
+    return false;
   }
 
   function click(evt) {
-    if (Utils.isDoubleTapBug(evt)) return false;
+    if (window.Utils && Utils.isDoubleTapBug(evt)) return false;
     var $el = $(evt.target).closest('*[data-action]'),
         action = $(evt.target).closest('*[data-action]').attr('data-action'),
         value = $el.attr('data-value');
