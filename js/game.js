@@ -616,9 +616,9 @@ var Game = new (function() {
         return;
       }
       if (!undone)
-        grid.hint.show('That\'s the undo button.');
+        grid.hint.show('那是反悔按钮。');
       else
-        grid.hint.show('Nothing to undo.');
+        grid.hint.show('已经没有可反悔的了。');
       return;
     }
     var undoState = undoStack.pop(),
@@ -631,10 +631,10 @@ var Game = new (function() {
       tile.clear();
     }
     tile.mark();
-    var s = 'This tile was reversed to ';
-    if (value == 1) s += 'red.';
-    if (value == 2) s += 'blue.';
-    if (value == 0) s += 'its empty state.'
+    var s = '这块将要变回';
+    if (value == 1) s += '红色。';
+    if (value == 2) s += '蓝色。';
+    if (value == 0) s += '空状态。'
     grid.hint.show(s);
     undone = true;
     clearTimeout(checkTOH);
