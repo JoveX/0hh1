@@ -55,10 +55,8 @@ gulp.task('concatCss', function() {
 });
 
 gulp.task('minifyCss', ['concatCss'], function() {
-    return gulp.src('./dist/style.min.css')
-        .pipe(minifyCSS({
-            // keepBreaks: true
-        }))
+    return gulp.src('./dist/css/style.min.css')
+        .pipe(minifyCSS('style.min.css'))
         .pipe(gulp.dest('./dist/css/'))
 });
 
