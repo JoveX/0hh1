@@ -179,7 +179,7 @@ var Game = new (function() {
   function showSizes() {
     onHomeScreen = false;
     showGame();
-    $('#boardsize').html('<span>请选择模式</span>');
+    $('#boardsize').html('<span>模式选择</span>');
     $('#menugrid').removeClass('hidden');
     $('#board').addClass('hidden');
     $('#bar [data-action]').not('[data-action="back"]').hide();
