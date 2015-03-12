@@ -15,6 +15,7 @@ var rename = require('gulp-rename');
 var processhtml = require('gulp-processhtml');
 var htmlmin = require('gulp-htmlmin');
 var clean = require('gulp-clean');
+var replace = require('gulp-replace');
 
 gulp.task('concatScript', function() {
     return gulp.src([
@@ -70,10 +71,16 @@ gulp.task('handleHTML', ['processTHML'], function() {
         .pipe(gulp.dest('dist'))
 });
 
-gulp.task('processTHML', function() {
+gulp.task('replaceHTML', function() {
     return gulp.src('./*.html')
+        .pipe(replace(/@@version/g, +new Date))
+        .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('processTHML', ['replaceHTML'], function() {
+    return gulp.src('./dist/*.html')
         .pipe(processhtml())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('clean', function() {
@@ -84,8 +91,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('copyImg', function() {
-    return gulp.src(['./fonts/*.ttf', './img/*'], {
-        })
+    return gulp.src(['./fonts/*.ttf', './img/*'], {})
         .pipe(gulp.dest('./dist/img/'));
 });
 
