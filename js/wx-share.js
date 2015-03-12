@@ -14,11 +14,10 @@ $(function() {
     };
 
     $.ajax({
-        url: 'http://wxsign.jser.io/getsign',
+        url: '/api/usercenter/getWeiXinJsSign.go',
         cache: false,
-        dataType: 'jsonp',
         success: function(data) {
-            console.log(data);
+            init(data);
         }
     });
 
