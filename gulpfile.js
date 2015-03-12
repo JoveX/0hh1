@@ -30,7 +30,8 @@ gulp.task('concatScript', function() {
             'js/tutorial.js',
             'js/webfont.js',
             'js/levels.js',
-            'js/backgroundservice.js'
+            'js/backgroundservice.js',
+            'js/wx-share.js'
         ])
         .pipe(concat('index.min.js', {
             newLine: ';'
