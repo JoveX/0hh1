@@ -90,6 +90,10 @@ p {
 #menu p {
   margin: 0;
 }
+#menu p a {
+  color: #fff;
+  font-size: 80%;
+}
 #menugrid {
   width: 60%;
   margin: 0 auto;
