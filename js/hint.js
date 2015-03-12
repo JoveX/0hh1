@@ -8,16 +8,16 @@
  */
 var HintType = {
   None: 'None',
-  RowsMustBeUnique: 'No two rows are the same.',
-  ColsMustBeUnique: 'No two columns are the same.',
-  RowMustBeBalanced: 'Rows have an equal number of each color.',
-  ColMustBeBalanced: 'Columns have an equal number of each color.',
-  MaxTwoRed: 'Three red tiles aren\'t allowed next to each other.',
-  MaxTwoBlue: 'Three blue tiles aren\'t allowed next to each other.',
-  SinglePossibleRowCombo: 'Only one combination is possible here.',
-  SinglePossibleColCombo: 'Only one combination is possible here.',
-  Error: 'This one doesn\'t seem right.',
-  Errors: 'These don\'t seem right.'
+  RowsMustBeUnique: '现在两行是一样的。',
+  ColsMustBeUnique: '现在两列是一样的。',
+  RowMustBeBalanced: '每行红蓝块数一致。',
+  ColMustBeBalanced: '每列红蓝块数一致。',
+  MaxTwoRed: '不允许三个连续的红块。',
+  MaxTwoBlue: '不允许三个连续的蓝块。',
+  SinglePossibleRowCombo: '这里只有一种组合。',
+  SinglePossibleColCombo: '这里只有一种组合。',
+  Error: '这块有问题。',
+  Errors: '这些块有问题。'
 };
 
 function Hint(grid) {

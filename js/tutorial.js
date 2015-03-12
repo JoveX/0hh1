@@ -7,16 +7,16 @@
  * martin@q42.nl | @mrtnkl
  */
 var TutorialMessages = {
-  1: { msg: 'We\'re going to fill the grid.<br>Tap the tile to make it red.', tiles: [ [0,0,1] ] },
-  2: { msg: 'Excellent!<br>Tap twice to turn a tile blue.', tiles: [ [0,1,2] ] },
-  3: { msg: 'Three red tiles next to each other in a row isn\'t allowed.', tiles: [ [2,0,2] ] },
-  4: { msg: 'Never have three blue tiles together in a row either.', tiles: [ [1,1,1] ] },
-  5: { msg: 'Three red or blue tiles below each other is invalid too!', tiles: [ [1,2,2], [2,2,1] ] },
-  6: { msg: 'A full row must have as many red tiles as it has blue ones.', tiles: [ [3,1,1] ], rows: [1] },
-  7: { msg: 'Columns have an equal number of each color too.', tiles: [ [1,3,2] ], cols: [1] },
-  8: { msg: 'You should be able to know what color this one is...', tiles: [ [2,3,1] ] },
-  9: { msg: 'No two rows and no two columns are the same.', tiles: [ [0,3,1], [0,2,2],[3,2,1] ], rows:[2,3] },
- 10: { msg: 'If you get stuck, tap the eye to peek.', tiles: [ [3,0,2] ], wiggle: true }
+  1: { msg: '我们要填充这些方块。<br>点击使其变成红色。', tiles: [ [0,0,1] ] },
+  2: { msg: '太棒了！<br>连续点两次使其变成蓝色。', tiles: [ [0,1,2] ] },
+  3: { msg: '不允许三个连续的红块。', tiles: [ [2,0,2] ] },
+  4: { msg: '也不允许三个连续的蓝块。', tiles: [ [1,1,1] ] },
+  5: { msg: '一列三个连续的蓝、红色块也是不可以的!', tiles: [ [1,2,2], [2,2,1] ] },
+  6: { msg: '一整行的红、蓝色块数量要相同。', tiles: [ [3,1,1] ], rows: [1] },
+  7: { msg: '一整列的红、蓝色块数量也要相同。', tiles: [ [1,3,2] ], cols: [1] },
+  8: { msg: '你应该知道这块是什么颜色...', tiles: [ [2,3,1] ] },
+  9: { msg: '任何两行或两列的排列是不能完全相同的。', tiles: [ [0,3,1], [0,2,2],[3,2,1] ], rows:[2,3] },
+ 10: { msg: '如果你不知道下一步应该怎么做，也可以点下面的眼睛来获取提示。', tiles: [ [3,0,2] ], wiggle: true }
 }
 
 var Tutorial = new (function() {
