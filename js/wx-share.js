@@ -8,9 +8,9 @@
 $(function() {
     var shareData = {
         title: '0h h1',
-        desc: 'A little logic game by Q42.',
-        link: 'http://game.jser.io/0hh1/dist/',
-        imgUrl: 'http://game.jser.io/0hh1/dist/img/icon-180.png',
+        desc: '挑战你大脑逻辑，谁与争锋！',
+        link: 'http://3g.k.sohu.com/active/85/',
+        imgUrl: 'http://3g.k.sohu.com/active/85/img/icon-180.png',
     };
 
     $.ajax({
